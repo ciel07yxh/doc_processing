@@ -1,13 +1,13 @@
 from openpyxl import load_workbook
 
-wb = load_workbook(filename='底稿制作.xlsx')
+wb = load_workbook(filename='sample.xlsx')
 # 处理第一张表单
-# sheet_ranges = wb['第一部分 第二章 业务与技术调查']
+# sheet_ranges = wb['第一部分']
 # 处理第二张表单
-sheet_ranges = wb['第一部分 第三章 同业竞争与关联交易调查']
+sheet_ranges = wb['第二部分']
 # 新建表单存放格式化后的数据
-# new_sheet = wb.create_sheet('formated_第一部分 第二章 业务与技术调查')
-new_sheet = wb.create_sheet('formated_第一部分 第三章 同业竞争与关联交易调查')
+# new_sheet = wb.create_sheet('formated_第一部分')
+new_sheet = wb.create_sheet('formated_第二部分')
 # 空单元格flag
 flag = 0
 
