@@ -18,7 +18,7 @@ def indent(uni, content1, content2):
     # 起始纯文字，则不移动
     if uni == 0:
         new_sheet[chr(ord('A') + uni) + str(n + 3)].value = content1
-        # 对于没有编号的只缩进内容
+    # 对于没有编号的只缩进内容
     if flag > 0:
         # 将excel列号的字母变为数字，加上缩进量再转化回
         new_sheet[chr(ord('B') + uni) + str(n + 3)].value = content2
@@ -38,25 +38,27 @@ def get_content(n):
 
 
 def count_and_indent(n, content):
-    """根据‘-’的数量计数缩进量；对于没有编号的行（content[0]类型为None），向前寻找就近的缩进数（回调）"""
+    """根据‘-’的数量计数缩进量；对于没有编号的行（content[0]类型为None），向前寻找就近的缩进数（递归）"""
     global flag
     # print(n)
     if content[0] != None:
         numb = content[0].count("-")
         # 对于没有编号的只缩进内容,向前查找了flag行，缩进内容时要回到该行
         if flag != 0:
+            # 获取第n+flag行的标题和文本内容
             content = get_content(n+flag)
         indent(numb, content[0], content[1])
     # 起始为空格，向前寻找就近的缩进数
     else:
         n -= 1
         flag += 1
+        # 向前查找缩进量，调用自己
         count_and_indent(n, get_content(n))
     return
 
 
-# n为表单行数
+# n为表单行数，逐行进行处理
 for n in range(180):
     content = get_content(n)
     count_and_indent(n, content)
-wb.save(r'底稿制作.xlsx')
+wb.save(r'sample.xlsx')
